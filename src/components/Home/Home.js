@@ -1,5 +1,6 @@
 import React from 'react';
 import App from '../../App';
+
 import Banner from './Banner';
 import Category from './Category';
 import Feature from './Feature';
@@ -11,7 +12,8 @@ const Home = () => {
             <Banner />
             <Feature />
             <Category />
-            
+            <SectionProducts />
+           
         </App>
     )
 }

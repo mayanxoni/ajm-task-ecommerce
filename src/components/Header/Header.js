@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../App.css'
+import {Link,withRouter} from 'react-router-dom'
 
 import { faSearch, faUser, faHeart } from '@fortawesome/free-solid-svg-icons'
 const Header = () => {
@@ -22,7 +23,7 @@ const Header = () => {
                         <p className="border fs-5 border-dark p-2 px-3 my-auto font-monospace" style={{fontWeight: "bold", color:"#404040", letterSpacing:"4px"}}>WHOLEMART</p>
                     </div>
                     <div className="my-auto d-flex flex-row" style={{marginRight:"1rem" }}>
-                       <p className="btn header-icon "><FontAwesomeIcon icon={faUser}  style={{ outline: "none"}}/></p> 
+                       <Link className="header-icon m-2" to="/signin"><FontAwesomeIcon icon={faUser}  style={{ outline: "none"}}/></Link>                   
                        <p className="btn  header-icon "><FontAwesomeIcon icon={faHeart} style={{ outline: "none"}}/></p> 
                     </div>
                 </div>
@@ -31,4 +32,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default withRouter(Header);

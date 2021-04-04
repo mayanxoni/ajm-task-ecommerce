@@ -1,84 +1,64 @@
 import React from 'react';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+import Children from '../../images/children.jpg'
 
-const SectionProducts = () => {
-    return(
-    <div class="site-section block-3 site-blocks-2 bg-light">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-7 site-section-heading text-center pt-4">
-            <h2>Featured Products</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="nonloop-block-3 owl-carousel">
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid" />
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid" />
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid" />
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid" />
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">T-Shirt Mockup</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid" />
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+const responsive = {
+    0: { items: 1 },
+    568: { items: 2 },
+    1024: { items: 3 },
+};
+
+const items = [
+    <div className="item img-fliud text-center bg-white mx-2 mt-5" data-value="1" >
+      <img  src={Children} style={{maxHeight:"400px"}}/>
+      <div className="  mx-auto" >
+        <h4 style={{color:"#7971ea"}}>hlo</h4>
+        <p>features</p>
+      </div>
+    </div>,
+    <div className="item img-fliud text-center bg-white mx-2 mt-5" data-value="2">
+      <img src={Children} style={{maxHeight:"400px"}}/>
+      <div>
+        <h4 style={{color:"#7971ea"}}>hii</h4>
+        <p>features</p>
+      </div>
+    </div>,
+    <div className="item img-fliud text-center bg-white mx-2 mt-5" data-value="3">
+      <img src={Children} style={{maxHeight:"400px"}}/>
+      <div>
+        <h4 style={{color:"#7971ea"}}>hello</h4>
+        <p>features</p>
+      </div>
+    </div>,
+    <div className="item img-fliud text-center bg-white mx-2 mt-5" data-value="4">
+      <img src={Children} style={{maxHeight:"400px"}}/>
+      <div>
+        <h4 style={{color:"#7971ea"}}>hey</h4>
+        <p>features</p>
+      </div>
+      </div>,
+    <div className="item  img-fluid text-center bg-white mx-2 mt-5" data-value="5">
+      <img src={Children} style={{maxHeight:"400px"}}/>
+      <div>
+        <h4 style={{color:"#7971ea"}}>haha</h4>
+        <p>features</p>
+      </div>
+    </div>,
+];
+
+const SectionProducts = () => (
+  <div className="  ">
+    <div className=" container  text-start">
+     
+        <AliceCarousel className="text-start"
+            mouseTracking
+            items={items}
+            responsive={responsive}
+        />
+      
       </div>
     </div>
-
-    )
-}
+);
 
 export default SectionProducts;
