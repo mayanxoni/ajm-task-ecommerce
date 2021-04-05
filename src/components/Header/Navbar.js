@@ -13,7 +13,7 @@ const Navbar = () => {
                 </p>
             </li>
             <li className="nav-item m-3 d-flex">
-            <p className=" navLinks  my-auto">  <Link  className=" navLinks" to="/cart" style={{ color:"#404040" }}>
+            <p className=" navLinks  my-auto">  <Link  className=" navLinks" to="/shop" style={{ color:"#404040" }}>
                     SHOP 
                 </Link>
                 </p>

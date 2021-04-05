@@ -1,13 +1,13 @@
 
-
 import React from 'react';
+import {Link} from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 // import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -18,12 +18,16 @@ import App from '../../App';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
   paper: {
+    marginInline: theme.spacing(5),
     marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+
   },
   avatar: {
     margin: theme.spacing(1),
@@ -40,11 +44,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Signin = () => {
   const classes = useStyles();
+  
 
   return (
     <App>
-    <Container component="main" maxWidth="xs">
+    <Container  component="main" maxWidth="xs">
        <CssBaseline />
+       <div className="card my-5 overflow-hidden rounded-3 ">
        <div className={classes.paper}>
          <Avatar className={classes.avatar}>
            <LockOutlinedIcon />
@@ -75,10 +81,7 @@ const Signin = () => {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+        
           <Button
             type="submit"
             fullWidth
@@ -95,14 +98,14 @@ const Signin = () => {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/signup"  variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-    
+      </div>
     </Container>
     </App>
   );

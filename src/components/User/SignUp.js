@@ -1,13 +1,11 @@
 import React,{useState} from 'react';
-// import "../App.css"
+import {Link} from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-
+// import Link from '@material-ui/core/Link';
 import Shoppingimg from '../../images/welcome1.jpg'
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -16,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import App from '../../App';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { signup } from '../../api/userapi';
 // import {userSignUp} from './ApiHit'
 
 
@@ -37,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     margin: theme.spacing(8, 4),
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -63,25 +64,28 @@ const SignUp=(props )=> {
     email:'',
     password:''
   })
+
+  //destructure
+
 const {firstName,lastName,email,password}=formData
 const name = firstName+' '+lastName;
-const onChange=e=>{
+const onChange = e =>{
   setFormData({...formData, [e.target.name]:e.target.value})
 }
 
-const onSubmit = (e)=>{
-//   e.preventDefault();
-//   userSignUp({name,email,password})
-//   .then(err=>{
-//     if(err){
-//       console.log("err : ",err)
-//     }else{
-//       console.log("User Inserted",err);
-//     }
-//   }
-
-//   )
-  
+const onSubmit = e =>{
+   e.preventDefault();
+  //  signup({name,email,password})
+   console.log( signup({name,email,password}))
+  // .then( data =>{
+  //   console.log(data)
+  //    if(data){
+  //      console.log("error : ",data)
+  //    }else{
+  //      console.log("User Inserted", data);
+  //    }
+  // }
+  // ).catch(console.log("error in signup")) 
 }
 
   return (
@@ -153,12 +157,7 @@ const onSubmit = (e)=>{
                 onChange={onChange}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+           
           </Grid>
           <Button
             type="submit"
@@ -172,7 +171,7 @@ const onSubmit = (e)=>{
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/" variant="body2" onClick={props.signup}>
+              <Link to="/signin" variant="body2" onClick={props.signup}>
                 Already have an account? Sign in
               </Link>
             </Grid>

@@ -1,16 +1,18 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom'
-import App from '../../App';
+
+
+import  '../../App.css';
+
 const Footer = () => {
     return(
-        <App >
-            <div className="border-top">
-            <div className="container">
-                <p className="my-5">Copyright &copy; 2021 All rights reserved | This template is made with Love . </p>
+        <div className=" bg-warning border-top footers w-100" >
+            <div className="">
+            <div className="container-fluid ">
+                <p className=" fs-6 py-5">Copyright &copy; 2021 All rights reserved | This template is made with Love . </p>
             </div>
             </div>
-        </App>
+        </div>
     )
 }
 
-export default withRouter(Footer);
+export default Footer;

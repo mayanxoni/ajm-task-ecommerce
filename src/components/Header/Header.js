@@ -24,7 +24,7 @@ const Header = () => {
                     </div>
                     <div className="my-auto d-flex flex-row" style={{marginRight:"1rem" }}>
                        <Link className="header-icon m-2" to="/signin"><FontAwesomeIcon icon={faUser}  style={{ outline: "none"}}/></Link>                   
-                       <p className="btn  header-icon "><FontAwesomeIcon icon={faHeart} style={{ outline: "none"}}/></p> 
+                       <Link className="  header-icon m-2" to="/wishproduct"><FontAwesomeIcon icon={faHeart} style={{ outline: "none"}}/></Link> 
                     </div>
                 </div>
             </div>
