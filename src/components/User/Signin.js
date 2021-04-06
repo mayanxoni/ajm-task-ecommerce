@@ -1,12 +1,11 @@
 
-import React from 'react';
-import {Link} from 'react-router-dom'
+import React,{useState} from 'react';
+import {Link, useHistory} from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 // import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 // import Box from '@material-ui/core/Box';
@@ -15,8 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import App from '../../App';
-
-
+import {signin } from '../../api/userapi'
+import Cookies from 'js-cookie';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,12 +42,77 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Signin = () => {
+  const [user,setUser] = useState()
+  const [values, setValues] = useState({
+    email : "",
+    password : "",
+    error:"",
+    loading : false,
+    didRedirect : false
+  })
+  let history = useHistory();
+
+const {email , password, error, loading, didRedirect}=values;
+const onChange = e =>{
+  setValues({...values, error : false, [e.target.name]:e.target.value})
+}
+
+
+const errorMessage = () => {
+  return(
+  <div className="row">
+      <div className="col-md-6 offset-sm-3 text-left">
+          <div className="alert alert-danger" style={{ display : error ? "" : "none" }}>
+              {error}
+          </div>
+      </div>
+  </div>
+  )
+}
+
+const onSubmit = (e)=>{
+  e.preventDefault();
+  setValues({...values, error:false, loading:true})
+  signin({email,password})
+  .then(data=>{
+    if(data.error){
+      setValues({...values, error : data.error,loading:false})
+      console.log("error",data.error);
+    }else{
+        setUser(data.user)
+        setValues({...values,didRedirect:true})
+        console.log("Response",data.user)
+      }
+    })
+    // getLocalStorageData()
+    // console.log("asdf",getLocalStorageData());
+    
+    .then(()=>{
+      console.log(email);
+      if(user){
+       history.push("/");
+       console.log("hereif",user);
+      }else{
+        console.log("here",user);
+      }
+    })
+    .catch(console.log("signin request failed"))   
+}
+  const redirectTo = () => {
+    if(didRedirect) {
+     
+      console.log("hii")
+      history.push("/")
+    
+  }else{console.log("hii");}
+  }
+
   const classes = useStyles();
   
 
   return (
     <App>
-    <Container  component="main" maxWidth="xs">
+    {<Container  component="main" maxWidth="xs">
        <CssBaseline />
        <div className="card my-5 overflow-hidden rounded-3 ">
        <div className={classes.paper}>
@@ -58,7 +122,7 @@ const Signin = () => {
         <Typography component="h1" variant="h5">
           Sign in
          </Typography>
-         <form className={classes.form} noValidate>
+         <form className={classes.form} noValidate onSubmit={onSubmit}>
            <TextField
             variant="outlined"
             margin="normal"
@@ -69,6 +133,8 @@ const Signin = () => {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={onChange}
           />
           <TextField
             variant="outlined"
@@ -80,6 +146,8 @@ const Signin = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={onChange}
           />
         
           <Button
@@ -88,8 +156,10 @@ const Signin = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            
           >
             Sign In
+            
           </Button>
           <Grid container>
             <Grid item xs>
@@ -106,7 +176,8 @@ const Signin = () => {
         </form>
       </div>
       </div>
-    </Container>
+    </Container>}
+    {/* {redirectTo()} */}
     </App>
   );
 }

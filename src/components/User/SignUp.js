@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom'
+import {Link ,useHistory} from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -15,7 +15,7 @@ import App from '../../App';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { signup } from '../../api/userapi';
-// import {userSignUp} from './ApiHit'
+import Signin from './Signin'
 
 
 
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp=(props )=> {
+  let history = useHistory();
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -75,17 +76,18 @@ const onChange = e =>{
 
 const onSubmit = e =>{
    e.preventDefault();
-  //  signup({name,email,password})
-   console.log( signup({name,email,password}))
-  // .then( data =>{
-  //   console.log(data)
-  //    if(data){
-  //      console.log("error : ",data)
-  //    }else{
-  //      console.log("User Inserted", data);
-  //    }
-  // }
-  // ).catch(console.log("error in signup")) 
+   signup({name,email,password})
+  //  console.log( signup({name,email,password}))
+  .then( err =>{
+        if(err){
+       console.log("error : ",err)
+     }else{
+       console.log("User Inserted");
+       history.push("/signin");
+      //  <Link to= "/signin" component={Signin} />
+     }
+  }
+  ).catch(err=>console.log("error in signup",err)) 
 }
 
   return (
