@@ -28,13 +28,13 @@ const Products = () =>{
                   {products.map((item)=>
                   <div className="col-lg-3 mt-5">
                     <div className="card overflow-hidden  rounded-3 cardresponsive"  key={item.pro_id}>
-                    <Link to="/product" >
+                    <Link to={`/product/${item.id}`}  aboutProps={item.id}>
                         <img src={item.image} className="card-img-top " alt="cardImg" style={{width:"100%"}}></img>
                         </Link>
                         <div className="card-body ">
                           
                             <h4  className="card-title flex-grow-1 m-0"> 
-                            <Link to="/product" style={{textDecoration:"none", color: "#7971ea" }}>{item.name}</Link>
+                            <Link to={`/product/${item.pro_id}`} style={{textDecoration:"none", color: "#7971ea" }}>{item.name}</Link>
                             </h4>
                             <div className="overflow-hidden " style={{height:"100px"}}>
                             <p className="card-text text-muted my-2 p-0"> {item.description}</p>

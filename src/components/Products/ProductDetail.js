@@ -1,47 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import App from '../../App';
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import {getProductDetail} from '../../api/productapi' 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
 
 const ProductDetail = ({match}) =>{
-    console.log(match)
+    console.log("match",match)
 
     const [product, setProduct] = useState([])
+    
+    const getDetail = () => {
+        getProductDetail(match.params.id)
+        .then(data=>{
+            console.log("data",data);
+             setProduct(data)
+        }).catch((err)=>console.log("err",err))
+    }
 
-
-    // useEffect(() => {
-    //     const fetchProducts = async () => {
-    //         const { data } = await axios.get(`/api/products/${match.params.id}`)
-    //         setProduct(data)
-    //     }
-    //     fetchProducts()
-    // }, [match])
+    useEffect(() => {
+      getDetail()   
+    }, [match])
     return (
         <App>
-            <Link className='btn btn-light my-3' to='/'>
-                Go Back
+            <Container sm className="text-start">
+            <Link className='btn m-3  ' to='/shop' style={{backgroundColor:"#7971ea", color:"white"}}>
+                <h3 className="my-auto "> <FontAwesomeIcon  icon={faArrowLeft} style={{ outline: "none"}}/> </h3>
             </Link>
-            <Row>
-                <Col md={6}>
-                    <Image src={product.image} alt={product.name} fluid />
+            <Row >
+                <Col sm={6} className="p-4">
+                    <Image src={product.image} alt={product.name} className="pb-5" fluid style={{}}/>
                 </Col>
-                <Col md={3}>
-                    <ListGroup variant="flush">
+                <Col sm={6} className="text-start">
+                    <ListGroup variant="flush" className="m-5">
                         <ListGroup.Item>
-                            <h3>{product.name}</h3>
+                            <h3 className="">{product.name} 
+                            
+                            <span className=" float-end header-icon m-2" title="Add to Wishlist"><FontAwesomeIcon icon={faHeart} style={{ outline: "none"}}/></span> 
+                            </h3>
+                            
                         </ListGroup.Item>
-                        <ListGroup.Item>
-                            {/* <Rating value={product.rating} text={`${product.numReviews} reviews`} /> */}
+                        {/* <ListGroup.Item>
+                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                        </ListGroup.Item> */}
+                        <ListGroup.Item className="my-4">
+                            Description: Rs.{product.description}
                         </ListGroup.Item>
-                        <ListGroup.Item>
-                            Price: ${product.price}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            Description: ${product.description}
+                        <ListGroup.Item style={{color:"#7971ea", fontSize:"1.3rem"}}>
+                            Price: Rs.{product.price}
                         </ListGroup.Item>
                     </ListGroup>
+                    
                 </Col>
-                <Col md={3}>
+                {/* <Col md={3}>
                     <Card>
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
@@ -69,8 +82,9 @@ const ProductDetail = ({match}) =>{
                             </ListGroup.Item>
                         </ListGroup>
                     </Card>
-                </Col>
+                </Col> */}
             </Row>
+            </Container>
         </App>
 
     )

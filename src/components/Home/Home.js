@@ -7,7 +7,7 @@ import Feature from './Feature';
 import SectionProducts from './SectionProducts';
 
 const Home = () => {
-    console.log("API IS", API);
+    
     return(
         <App>
             <Banner />

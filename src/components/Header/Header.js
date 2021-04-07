@@ -1,10 +1,25 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../App.css'
 import {Link,withRouter} from 'react-router-dom'
 
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Popover from '@material-ui/core/Popover';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+
 import { faSearch, faUser, faHeart } from '@fortawesome/free-solid-svg-icons'
 const Header = () => {
+    const [user,setUser] = useState();
+
+    useEffect(()=>{
+        const userData = JSON.parse(localStorage.getItem('user'))
+        console.log("userData",userData)
+        setUser(userData)
+        console.log("user",user);
+    },[])
+
     return(
         <div className="mt-4 border-bottom" >
             <div className="container mb-4 px-5 ">
@@ -23,7 +38,35 @@ const Header = () => {
                         <p className="border fs-5 border-dark p-2 px-3 my-auto font-monospace" style={{fontWeight: "bold", color:"#404040", letterSpacing:"4px"}}>WHOLEMART</p>
                     </div>
                     <div className="my-auto d-flex flex-row" style={{marginRight:"1rem" }}>
-                       <Link className="header-icon m-2" to="/signin"><FontAwesomeIcon icon={faUser}  style={{ outline: "none"}}/></Link>                   
+                       {/* <Link className="header-icon m-2" to="/signin"><FontAwesomeIcon icon={faUser}  style={{ outline: "none"}}/></Link>  */}
+
+                        <PopupState variant="popover" popupId="demo-popup-popover" >
+                            {(popupState) => (
+                                <div className="my-auto">
+                                <a className="header-icon m-2" variant="contained" {...bindTrigger(popupState)}>
+                                    <FontAwesomeIcon icon={faUser}  style={{ outline: "none"}}/>
+                                </a>
+                                <Popover
+                                    {...bindPopover(popupState)}
+                                    anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'center',
+                                    }}
+                                    
+                                >
+                                    <Box p={2} className="text-center" style={{backgroundColor:"#7971ea",color:"white"}}>
+                                    {/* <Typography className="text-uppercase">{user.name}</Typography> */}
+                                    <Button className="" style={{color:"white"}}> Signout</Button>
+                                    </Box>
+                                </Popover>
+                                </div>
+                            )}
+                            </PopupState>
+
                        <Link className="  header-icon m-2" to="/wishproduct"><FontAwesomeIcon icon={faHeart} style={{ outline: "none"}}/></Link> 
                     </div>
                 </div>

@@ -75,12 +75,14 @@ const onSubmit = (e)=>{
   setValues({...values, error:false, loading:true})
   signin({email,password})
   .then(data=>{
-    if(data.error){
-      setValues({...values, error : data.error,loading:false})
-      console.log("error",data.error);
+    console.log("data",data);
+    if(!data.user){
+      setValues({...values, error : data.message,loading:false})
+      console.log("error",data.message);
     }else{
         setUser(data.user)
         setValues({...values,didRedirect:true})
+        localStorage.setItem('user',JSON.stringify(data.user))
         console.log("Response",data.user)
       }
     })
@@ -88,7 +90,6 @@ const onSubmit = (e)=>{
     // console.log("asdf",getLocalStorageData());
     
     .then(()=>{
-      console.log(email);
       if(user){
        history.push("/");
        console.log("hereif",user);

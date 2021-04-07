@@ -80,6 +80,7 @@ export const signin = user => {
     .then(response => {
         return response.json();
     })
+    
     .catch(err => console.log(err))
 };
 
