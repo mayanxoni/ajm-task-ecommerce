@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/ajm-task-ecommerce/static/css/main.bf521e11.chunk.css",
+    "main.js": "/ajm-task-ecommerce/static/js/main.adb6c264.chunk.js",
+    "main.js.map": "/ajm-task-ecommerce/static/js/main.adb6c264.chunk.js.map",
+    "runtime-main.js": "/ajm-task-ecommerce/static/js/runtime-main.7950f9d9.js",
+    "runtime-main.js.map": "/ajm-task-ecommerce/static/js/runtime-main.7950f9d9.js.map",
+    "static/css/2.dc7369df.chunk.css": "/ajm-task-ecommerce/static/css/2.dc7369df.chunk.css",
+    "static/js/2.15e86a45.chunk.js": "/ajm-task-ecommerce/static/js/2.15e86a45.chunk.js",
+    "static/js/2.15e86a45.chunk.js.map": "/ajm-task-ecommerce/static/js/2.15e86a45.chunk.js.map",
+    "static/js/3.3cbdb111.chunk.js": "/ajm-task-ecommerce/static/js/3.3cbdb111.chunk.js",
+    "static/js/3.3cbdb111.chunk.js.map": "/ajm-task-ecommerce/static/js/3.3cbdb111.chunk.js.map",
+    "index.html": "/ajm-task-ecommerce/index.html",
+    "static/css/2.dc7369df.chunk.css.map": "/ajm-task-ecommerce/static/css/2.dc7369df.chunk.css.map",
+    "static/css/main.bf521e11.chunk.css.map": "/ajm-task-ecommerce/static/css/main.bf521e11.chunk.css.map",
+    "static/js/2.15e86a45.chunk.js.LICENSE.txt": "/ajm-task-ecommerce/static/js/2.15e86a45.chunk.js.LICENSE.txt",
+    "static/media/blog_1.0e5b04c9.jpg": "/ajm-task-ecommerce/static/media/blog_1.0e5b04c9.jpg",
+    "static/media/children.dd9319b4.jpg": "/ajm-task-ecommerce/static/media/children.dd9319b4.jpg",
+    "static/media/App.css": "/ajm-task-ecommerce/static/media/hero_1.1f0a0af5.jpg",
+    "static/media/men.7a19373e.jpg": "/ajm-task-ecommerce/static/media/men.7a19373e.jpg",
+    "static/media/welcome1.d1bb3263.jpg": "/ajm-task-ecommerce/static/media/welcome1.d1bb3263.jpg",
+    "static/media/women.214e2aec.jpg": "/ajm-task-ecommerce/static/media/women.214e2aec.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7950f9d9.js",
+    "static/css/2.dc7369df.chunk.css",
+    "static/js/2.15e86a45.chunk.js",
+    "static/css/main.bf521e11.chunk.css",
+    "static/js/main.adb6c264.chunk.js"
+  ]
+}
