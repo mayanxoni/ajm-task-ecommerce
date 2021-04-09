@@ -13,7 +13,9 @@ import { Link } from 'react-router-dom';
 import { getProductDetail } from '../../api/productapi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { addToWishlist, getWishProducts } from '../../api/productapi';
+import { addToWishlist } from '../../api/productapi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let userdata = '';
 let toggle = '';
@@ -37,7 +39,9 @@ const ProductDetail = ({ match }) => {
 			if (data.error) {
 				alert('error : ', data.error);
 			} else {
-				alert(`message : ${data.message}`);
+				toast.success(`CheckOut Wishlist Products`, {
+					position: 'top-center',
+				});
 				console.log('wishData', data);
 
 				toggle = data.list.products.filter(
@@ -156,6 +160,7 @@ const ProductDetail = ({ match }) => {
                 </Col> */}
 				</Row>
 			</Container>
+			<ToastContainer />
 		</App>
 	);
 };

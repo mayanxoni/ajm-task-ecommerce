@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../App.css';
 import { Link, withRouter, Redirect } from 'react-router-dom';
-
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import { faSearch, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let userData = '';
 const Header = () => {
@@ -19,13 +19,13 @@ const Header = () => {
 			return <Redirect to="/signin" />;
 		} else {
 			localStorage.removeItem('jwt');
-			alert(`Signout Successful`);
+			toast.success(`Signout Successful`, { position: 'top-center' });
 		}
 	};
 
 	useEffect(() => {
 		userData = JSON.parse(localStorage.getItem('jwt'));
-		//console.log("userData",userData.user.name)
+		console.log('userData', userData);
 		setUserProfile(userData);
 		// console.log("user",user);
 	}, []);
@@ -102,7 +102,7 @@ const Header = () => {
 										}}
 									>
 										<Box
-											p={2}
+											p={0}
 											className="text-center"
 											style={{
 												backgroundColor: '#7971ea',
@@ -110,19 +110,32 @@ const Header = () => {
 											}}
 										>
 											{/* <h4 className="text-uppercase">{ userProfile.user.name}</h4>  */}
-											<div>
-												<Link
-													to="/signin"
-													className=""
-													style={{
-														color: 'white',
-														outline: 'none',
-														textDecoration: 'none',
-													}}
-												>
-													LOGIN
-												</Link>{' '}
-												{/*  TODO: */}
+
+											<div className="p-1">
+												{!userData ? (
+													<Link
+														to="/signin"
+														className="text-uppercase fs-6 p-1"
+														style={{
+															color: 'white',
+															outline: 'none',
+															textDecoration:
+																'none',
+														}}
+													>
+														LOGIN
+													</Link>
+												) : (
+													<p
+														className="text-uppercase border bg-white rounded mb-1 p-2"
+														style={{
+															fontSize: '1rem',
+															color: '#7976ea',
+														}}
+													>
+														{userData.user.name}
+													</p>
+												)}
 											</div>
 
 											{!userData ? (
@@ -155,6 +168,7 @@ const Header = () => {
 					</div>
 				</div>
 			</div>
+			<ToastContainer />
 		</div>
 	);
 };

@@ -27,7 +27,7 @@ const Products = () => {
 				<div className=" overflow-hidden px-4 ">
 					<div className="row  mb-5">
 						{products.map((item) => (
-							<div className="col-lg-3 mt-5" key={item.pro_id}>
+							<div className="col-lg-3 mt-5" key={item.id}>
 								<div className="card overflow-hidden  rounded-3 cardresponsive">
 									<Link
 										to={`/product/${item.id}`}
