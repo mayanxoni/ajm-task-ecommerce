@@ -13,17 +13,22 @@ import { Link } from 'react-router-dom';
 import { getProductDetail } from '../../api/productapi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { addToWishlist } from '../../api/productapi';
+import { addToWishlist, getWishProducts } from '../../api/productapi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 let userdata = '';
-let toggle = '';
+let toggle1 = '';
+let wishProductIcon ;
+
 const ProductDetail = ({ match }) => {
 	console.log('match', match);
 
 	const [product, setProduct] = useState([]);
+	const [toggle, setToggle] = useState([]);
 
+
+// Get product detail api call
 	const getDetail = () => {
 		getProductDetail(match.params.id)
 			.then((data) => {
@@ -33,20 +38,35 @@ const ProductDetail = ({ match }) => {
 			.catch((err) => console.log('err', err));
 	};
 
+//get wishlist product api call
+	const getWishlist = (userdata) => {
+		console.log("hii");
+		getWishProducts(userdata).then((data) => {
+			console.log('getWishlist', data);
+			wishProductIcon = data.wishlistData.filter(item=>item.id === product.id )
+			// console.log('wishlistdata',  data.wishlistData.filter(item=>item.id === product.id ));
+			console.log('wishlistdata', wishProductIcon);
+		});
+	};
+
+// Add to wishlist / remove to wishlist api call
 	const performAddToWishlist = () => {
 		console.log('boo');
 		addToWishlist(userdata.user.id, match.params.id).then((data) => {
 			if (data.error) {
-				alert('error : ', data.error);
+				return toast.error(` data.error`,{
+					position:'top-center'
+				});
 			} else {
 				toast.success(`CheckOut Wishlist Products`, {
 					position: 'top-center',
 				});
 				console.log('wishData', data);
 
-				toggle = data.list.products.filter(
+				toggle1 = data.list.products.filter(
 					(item) => item.id == match.params.id
 				);
+				setToggle(toggle1);
 				console.log('toggle', toggle.length);
 			}
 		});
@@ -58,11 +78,20 @@ const ProductDetail = ({ match }) => {
 		// })
 	};
 
+	
+
+
 	useEffect(() => {
+		console.log("noick");
 		userdata = JSON.parse(localStorage.getItem('jwt'));
-		getDetail();
+		if (userdata) {
+			getDetail();
+			getWishlist(userdata);
+		} else {
+			console.log('user not get');
+		}
 		console.log('userD', userdata);
-	}, [match]);
+	}, [toggle]);
 	return (
 		<App>
 			<Container sm className="text-start">
@@ -100,7 +129,8 @@ const ProductDetail = ({ match }) => {
 										title="Add to Wishlist"
 										onClick={() => performAddToWishlist()}
 									>
-										{toggle.length === 0 ? (
+										{wishProductIcon === undefined || 0 ?  
+										  (
 											<FontAwesomeIcon
 												icon={faHeart}
 												style={{ outline: 'none' }}
