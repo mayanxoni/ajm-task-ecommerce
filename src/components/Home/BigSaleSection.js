@@ -24,7 +24,7 @@ const BigSaleSection = () => {
 						<Link to="/shop">
 							<img
 								src={Saleimg}
-								alt="Image placeholder"
+								alt="Image_placeholder"
 								className="img-fluid rounded"
 							/>
 						</Link>

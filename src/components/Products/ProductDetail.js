@@ -19,55 +19,71 @@ import 'react-toastify/dist/ReactToastify.css';
 
 let userdata = '';
 let toggle1 = '';
-let wishProductIcon ;
-
+// let wishProductIcon;
 const ProductDetail = ({ match }) => {
-	console.log('match', match);
+	// console.log('match', match);
 
 	const [product, setProduct] = useState([]);
 	const [toggle, setToggle] = useState([]);
-
-
-// Get product detail api call
+	const [wishProductIcon, setWishProductIcon] = useState(false);
+	// Get product detail api call
 	const getDetail = () => {
 		getProductDetail(match.params.id)
 			.then((data) => {
-				console.log('data', data);
+				// console.log('getProductDetail', data);
 				setProduct(data);
 			})
 			.catch((err) => console.log('err', err));
 	};
 
-//get wishlist product api call
+	//get wishlist product api call
 	const getWishlist = (userdata) => {
-		console.log("hii");
+		// console.log('hii');
 		getWishProducts(userdata).then((data) => {
 			console.log('getWishlist', data);
-			wishProductIcon = data.wishlistData.filter(item=>item.id === product.id )
-			// console.log('wishlistdata',  data.wishlistData.filter(item=>item.id === product.id ));
-			console.log('wishlistdata', wishProductIcon);
+			let isWishProductAdd = data.wishlistData.find(
+				(item) => item.id === product.id,
+				console.log('find')
+			);
+			// setWishProductIcon(data.wishlistData.filter((item) => item.id === product.id));
+			if (isWishProductAdd !== undefined) {
+				setWishProductIcon(true);
+				console.log('isWishProductAdd true', isWishProductAdd);
+				console.log(
+					'wishlistdata getwishlistApi true',
+					wishProductIcon
+				);
+			} else {
+				setWishProductIcon(false);
+
+				console.log('isWishProductAdd false', isWishProductAdd);
+				console.log(
+					'wishlistdata getwishlistApi false',
+					wishProductIcon
+				);
+			}
 		});
 	};
 
-// Add to wishlist / remove to wishlist api call
+	// Add to wishlist / remove to wishlist api call
 	const performAddToWishlist = () => {
 		console.log('boo');
 		addToWishlist(userdata.user.id, match.params.id).then((data) => {
 			if (data.error) {
-				return toast.error(` data.error`,{
-					position:'top-center'
+				return toast.error(` data.error`, {
+					position: 'top-center',
 				});
 			} else {
 				toast.success(`CheckOut Wishlist Products`, {
 					position: 'top-center',
 				});
-				console.log('wishData', data);
+				// console.log('wishData', data);
 
 				toggle1 = data.list.products.filter(
 					(item) => item.id == match.params.id
 				);
 				setToggle(toggle1);
-				console.log('toggle', toggle.length);
+				// console.log('toggle', toggle.length);
 			}
 		});
 		// .then(()=>{
@@ -78,11 +94,29 @@ const ProductDetail = ({ match }) => {
 		// })
 	};
 
-	
-
+	// const wishlistIconToggle = () => {
+	// 	console.log('wishProductIcon.length', wishProductIcon);
+	// 	if (wishProductIcon === 0 || undefined) {
+	// 		return (
+	// 			<FontAwesomeIcon
+	// 				icon={faHeart}
+	// 				style={{ outline: 'none' }}
+	// 				style={{ color: 'gray' }}
+	// 			/>
+	// 		);
+	// 	} else {
+	// 		return (
+	// 			<FontAwesomeIcon
+	// 				icon={faHeart}
+	// 				style={{ outline: 'none' }}
+	// 				style={{ color: '#7971ea' }}
+	// 			/>
+	// 		);
+	// 	}
+	// };
 
 	useEffect(() => {
-		console.log("noick");
+		console.log('useEffect');
 		userdata = JSON.parse(localStorage.getItem('jwt'));
 		if (userdata) {
 			getDetail();
@@ -90,7 +124,7 @@ const ProductDetail = ({ match }) => {
 		} else {
 			console.log('user not get');
 		}
-		console.log('userD', userdata);
+		// console.log('userD', userdata);
 	}, [toggle]);
 	return (
 		<App>
@@ -129,8 +163,7 @@ const ProductDetail = ({ match }) => {
 										title="Add to Wishlist"
 										onClick={() => performAddToWishlist()}
 									>
-										{wishProductIcon === undefined || 0 ?  
-										  (
+										{!wishProductIcon ? (
 											<FontAwesomeIcon
 												icon={faHeart}
 												style={{ outline: 'none' }}
@@ -139,8 +172,12 @@ const ProductDetail = ({ match }) => {
 										) : (
 											<FontAwesomeIcon
 												icon={faHeart}
-												style={{ outline: 'none' }}
-												style={{ color: '#7971ea' }}
+												style={{
+													outline: 'none',
+												}}
+												style={{
+													color: '#7971ea',
+												}}
 											/>
 										)}
 									</span>

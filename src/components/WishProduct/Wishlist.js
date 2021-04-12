@@ -38,6 +38,7 @@ const Wishlist = () => {
 	});
 
 	useEffect(() => {
+		console.log('useEffect wwishlist');
 		userdata = JSON.parse(localStorage.getItem('jwt'));
 		if (userdata) {
 			getWishlist(userdata);
@@ -45,7 +46,7 @@ const Wishlist = () => {
 			console.log('user not get');
 		}
 		console.log('total', total);
-	}, []);
+	}, [total]);
 
 	return (
 		<App>
