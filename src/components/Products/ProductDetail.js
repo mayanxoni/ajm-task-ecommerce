@@ -9,7 +9,7 @@ import {
 	Button,
 	Container,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { getProductDetail } from '../../api/productapi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -22,7 +22,7 @@ let toggle1 = '';
 // let wishProductIcon;
 const ProductDetail = ({ match }) => {
 	// console.log('match', match);
-
+	let history = useHistory();
 	const [product, setProduct] = useState([]);
 	const [toggle, setToggle] = useState([]);
 	const [wishProductIcon, setWishProductIcon] = useState(false);
@@ -68,24 +68,28 @@ const ProductDetail = ({ match }) => {
 	// Add to wishlist / remove to wishlist api call
 	const performAddToWishlist = () => {
 		console.log('boo');
-		addToWishlist(userdata.user.id, match.params.id).then((data) => {
-			if (data.error) {
-				return toast.error(` data.error`, {
-					position: 'top-center',
-				});
-			} else {
-				toast.success(`CheckOut Wishlist Products`, {
-					position: 'top-center',
-				});
-				// console.log('wishData', data);
+		if (!userdata) {
+			history.push('/signin');
+		} else {
+			addToWishlist(userdata.user.id, match.params.id).then((data) => {
+				if (data.error) {
+					return toast.error(` data.error`, {
+						position: 'top-center',
+					});
+				} else {
+					toast.success(`CheckOut Wishlist Products`, {
+						position: 'top-center',
+					});
+					// console.log('wishData', data);
 
-				toggle1 = data.list.products.filter(
-					(item) => item.id == match.params.id
-				);
-				setToggle(toggle1);
-				// console.log('toggle', toggle.length);
-			}
-		});
+					toggle1 = data.list.products.filter(
+						(item) => item.id == match.params.id
+					);
+					setToggle(toggle1);
+					// console.log('toggle', toggle.length);
+				}
+			});
+		}
 		// .then(()=>{
 		//     getWishProducts(userdata)
 		//     .then(data=>{
@@ -118,8 +122,8 @@ const ProductDetail = ({ match }) => {
 	useEffect(() => {
 		console.log('useEffect');
 		userdata = JSON.parse(localStorage.getItem('jwt'));
+		getDetail();
 		if (userdata) {
-			getDetail();
 			getWishlist(userdata);
 		} else {
 			console.log('user not get');

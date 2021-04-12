@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../App.css';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
@@ -12,11 +12,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 let userData = '';
 const Header = () => {
+	let history = useHistory();
 	const [userProfile, setUserProfile] = useState();
 
 	const signOut = () => {
 		if (!userData) {
-			return <Redirect to="/signin" />;
+			history.push('/signin');
 		} else {
 			localStorage.removeItem('jwt');
 			toast.success(`Signout Successful`, { position: 'top-center' });

@@ -31,7 +31,7 @@ const Navbar = () => {
 					</p>
 				</li>
 
-				<li className="nav-item m-3 d-flex">
+				{/* <li className="nav-item m-3 d-flex">
 					<p className=" navLinks my-auto">
 						{' '}
 						<Link
@@ -54,7 +54,7 @@ const Navbar = () => {
 							CONTACT
 						</Link>{' '}
 					</p>
-				</li>
+				</li> */}
 			</ul>
 		</div>
 	);

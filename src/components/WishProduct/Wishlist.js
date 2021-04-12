@@ -46,7 +46,7 @@ const Wishlist = () => {
 			console.log('user not get');
 		}
 		console.log('total', total);
-	}, [total]);
+	}, []);
 
 	return (
 		<App>
@@ -128,18 +128,22 @@ const Wishlist = () => {
 															key={item.id}
 														>
 															<td className=" align-items-center  ">
-																<img
-																	style={{
-																		height:
-																			'140px',
-																		width:
-																			'150px',
-																	}}
-																	src={
-																		item.image
-																	}
-																	alt="productImg"
-																/>
+																<Link
+																	to={`/product/${item.id}`}
+																>
+																	<img
+																		style={{
+																			height:
+																				'140px',
+																			width:
+																				'150px',
+																		}}
+																		src={
+																			item.image
+																		}
+																		alt="productImg"
+																	/>
+																</Link>
 															</td>
 															<td className=" py-5">
 																{item.name}
